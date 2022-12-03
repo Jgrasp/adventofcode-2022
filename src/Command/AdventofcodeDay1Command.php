@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Collection\TypedCollection;
 use App\Entity\Elf;
 use App\Entity\ElfCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -32,7 +33,7 @@ class AdventofcodeDay1Command extends Command
         $currentElf = 1;
         $elf = null;
 
-        $collection = new ElfCollection();
+        $collection = new TypedCollection(Elf::class);
 
         while ($line = fgets($file)) {
 
@@ -55,12 +56,18 @@ class AdventofcodeDay1Command extends Command
             $elf = null;
         }
 
-        /** @var Elf $bestElf */
-        $calories = $collection->countCalories(1);
+        //Sort elfs by calories
+        $collection = $collection->sort(static function (Elf $a, Elf $b) {
+            return $b->countCalories() <=> $a->countCalories();
+        });
 
-        $io->note('Result is : ' .$calories);
+        /** @var Elf $fatElf */
+        $fatElf = $collection->first();
+        $io->note('Fat elf eat ' . $fatElf->countCalories().' calories');
 
-        $calories = $collection->countCalories(3);
+        $topFatElfsCollection = $collection->slice(0, 3);
+        $calories = array_sum($topFatElfsCollection->map(static fn(Elf $elf) => $elf->countCalories()));
+
 
         $io->note('Total for 3 best elfs calories is : ' . $calories);
 
