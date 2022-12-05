@@ -51,4 +51,19 @@ enum Shape: int
             self::PAPER => self::SCISSOR,
         };
     }
+
+    public function getShapeFromRound(Round $round): self
+    {
+        if ($round === Round::DRAW) {
+            return $this;
+        }
+
+        if ($round === Round::WIN) {
+            return $this->defeatAgainst();
+        }
+
+        if ($round === Round::DEFEAT) {
+            return $this->winAgainst();
+        }
+    }
 }

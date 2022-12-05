@@ -20,4 +20,14 @@ enum Round: int
 
         return $player2->value + $points->value;
     }
+
+    public static function match(string $shape): self
+    {
+        return match ($shape) {
+            'X' => self::DEFEAT,
+            'Y' => self::DRAW,
+            'Z' => self::WIN,
+            default => throw new \Exception("Shape can not be match with round result")
+        };
+    }
 }

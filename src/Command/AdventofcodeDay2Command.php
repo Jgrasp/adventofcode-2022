@@ -39,6 +39,19 @@ class AdventofcodeDay2Command extends Command
 
         $io->success('Result is : ' . array_sum($collection->all()));
 
+        $collection = new Collection();
+
+        foreach ($data as $game){
+            $player1 = Shape::match($game[0]);
+            $player2 = $player1->getShapeFromRound(Round::match($game[1]));
+
+            $points = Round::play($player1, $player2);
+
+            $collection->add($points);
+        }
+
+        $io->success('Result with strategy guide is : ' . array_sum($collection->all()));
+
         return Command::SUCCESS;
     }
 }
