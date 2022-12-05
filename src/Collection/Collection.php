@@ -59,4 +59,9 @@ class Collection
         $elements = $this->elements;
         return array_shift($elements);
     }
+
+    public function all(): array
+    {
+        return $this->elements;
+    }
 }

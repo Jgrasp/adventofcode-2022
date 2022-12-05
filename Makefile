@@ -9,3 +9,6 @@ docker-ssh:
 
 docker-day1:
 	docker exec -it adventofcode-web-1 php bin/console adventofcode:day:1
+
+docker-day2:
+	docker exec -it adventofcode-web-1 php bin/console adventofcode:day:2

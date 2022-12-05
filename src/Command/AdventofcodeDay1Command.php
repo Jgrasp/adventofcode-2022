@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Collection\TypedCollection;
-use App\Entity\ElfCollection;
 use App\Model\Elf;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
